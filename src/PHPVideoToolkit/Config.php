@@ -1,5 +1,5 @@
 <?php
-    
+
     /**
      * This file is part of the PHP Video Toolkit v2 package.
      *
@@ -10,9 +10,9 @@
      * @version 2.1.7-beta
      * @uses ffmpeg http://ffmpeg.sourceforge.net/
      */
-     
+
     namespace PHPVideoToolkit;
-     
+
     /**
      * A configuration object to store all the configuration values required for PHPVideoToolkit.
      * Typically speaking this object is created once and set as a singleton instance for ease of use.
@@ -27,7 +27,7 @@
          * @access protected
          */
         protected static $_instance = null;
-        
+
         /**
          * Variable containers for the various configuration settings that Config contains.
          * @var mixed
@@ -131,7 +131,7 @@
             {
                 $this->{$key} = $value;
             }
-            
+
             return $this;
         }
 
@@ -146,6 +146,12 @@
          */
         public function __set($key, $value)
         {
+            // TODO: test if this is still needed
+            if(substr($key, 0,1) == "_") {
+                $this->$key = $value;
+                return;
+            }
+
             switch($key)
             {
                 case 'ffmpeg' :
@@ -154,7 +160,7 @@
                 case 'qtfaststart' :
                 case 'gifsicle' :
                 case 'convert' :
-                
+
                     if($value !== null)
                     {
                         if(strpos($value, '/') !== 0)
@@ -169,20 +175,20 @@
                             }
                         }
                     }
-                    
+
                     $this->{'_'.$key} = $value;
-                    
+
                     return;
-                    
+
                 case 'gif_transcoder' :
-                    
+
                     if(in_array($value, array('gifsicle', 'convert', 'php', null)) === false)
                     {
                         throw new ConfigSetException('Unrecognised gif transcoder engine.');
                     }
-                
+
                     $this->{'_'.$key} = $value;
-                    
+
                     return;
 
                 case 'cache_driver' :
@@ -196,11 +202,11 @@
                     {
                         throw new ConfigSetException('Unrecognised cache driver engine. The cache driver provider must inherit from \PHPVideoToolkit\CacheAbstract.');
                     }
-                
+
                     $this->{'_'.$key} = $value;
-                    
+
                     return;
-                    
+
                 case 'gif_transcoder_convert_dither_order' :
 
                     if(preg_match('/o[0-9]+x[0-9]+,[0-9]+/', $value) === 0)
@@ -208,27 +214,27 @@
                         throw new ConfigSetException('Unrecognised dither order. Please enter in the following format: oNxN,N where N are numerics.');
                     }
                     $this->{'_'.$key} = $value;
-                    
+
                     return;
-                    
+
                 case 'force_enable_qtfaststart' :
                 case 'php_exec_infinite_timelimit' :
                 case 'force_enable_flv_meta' :
                 case 'gif_transcoder_convert_use_dither' :
                 case 'gif_transcoder_convert_use_coalesce' :
                 case 'gif_transcoder_convert_use_map' :
-                    
+
                     if(in_array($value, array(true, false)) === false)
                     {
                         throw new ConfigSetException('Unrecognised '.$key.' value. It must be a boolean value, either true or false.');
                     }
-                
+
                     $this->{'_'.$key} = $value;
-                    
+
                     return;
-                    
+
                 case 'temp_directory' :
-                
+
                     $original_value = $value;
                     $value = realpath($value);
                     if(empty($value) === true || is_dir($value) === false)
@@ -243,12 +249,12 @@
                     {
                         throw new ConfigSetException('`temp_directory` "'.$original_value.'" is not writeable.');
                     }
-                    
+
                     $this->{'_'.$key} = $value;
-                    
+
                     return;
             }
-            
+
             throw new ConfigSetException('Setting undefined configuration property: '.$key);
         }
 

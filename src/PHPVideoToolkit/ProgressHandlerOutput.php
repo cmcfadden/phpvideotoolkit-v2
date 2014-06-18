@@ -1,5 +1,5 @@
 <?php
-    
+
     /**
      * This file is part of the PHP Video Toolkit v2 package.
      *
@@ -10,7 +10,7 @@
      * @version 2.1.7-beta
      * @uses ffmpeg http://ffmpeg.sourceforge.net/
      */
-     
+
     namespace PHPVideoToolkit;
 
     /**
@@ -95,7 +95,7 @@
             }
 
 //          compile the regex dependant on the numebr of video streams
-            $regex = 
+            $regex =
                 '/'.
                 $frame_regex.
                 $fps_regex.
@@ -119,7 +119,7 @@
                 $return_data['percentage'] = ($return_data['duration']->total_seconds/$this->_total_duration->total_seconds)*100;
                 $return_data['dup'] = $matches['dup'][$last_key];
                 $return_data['drop'] = $matches['drop'][$last_key];
-                
+
                 $is_last = false;
                 if($video_stream_count > 1)
                 {
@@ -140,7 +140,7 @@
 //              if we have the last frame then signal that the process has finished.
                 if($is_last === true)
                 {
-                    if($return_data['percentage'] < 99.5)
+                    if($return_data['percentage'] < 97.0)
                     {
                         $return_data['interrupted'] = true;
                         $return_data['status'] = self::ENCODING_STATUS_INTERRUPTED;
@@ -197,7 +197,7 @@
 
             $this->_last_probe_data = $return_data;
         }
-         
+
         protected function _getRawData()
         {
             return $this->_ffmpeg_process->getBuffer();

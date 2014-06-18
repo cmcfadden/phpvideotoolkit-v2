@@ -1,5 +1,5 @@
 <?php
-    
+
     /**
      * This file is part of the PHP Video Toolkit v2 package.
      *
@@ -10,7 +10,7 @@
      * @version 2.1.7-beta
      * @uses ffmpeg http://ffmpeg.sourceforge.net/
      */
-     
+
     namespace PHPVideoToolkit;
 
     /**
@@ -23,7 +23,7 @@
         protected $_progress_file;
         protected $_input;
         protected $_output;
-        
+
         public function __construct($callback=null, Config $config=null)
         {
 //          check that the "-progress" function is available.
@@ -35,12 +35,12 @@
             }
 
             parent::__construct($callback, $config);
-            
+
             $this->_progress_file = null;
             $this->_input = null;
             $this->_output = null;
         }
-        
+
         protected function _getRawData()
         {
 //          there is a problem reading from the chunking file, so we must copy and then read, then delete the copy
@@ -51,7 +51,7 @@
             @unlink($copy);
             return $data;
         }
-         
+
         protected function _parseOutputData(&$return_data, $raw_data)
         {
             $return_data['started'] = true;
@@ -78,7 +78,7 @@
             }
 
             $return_data['status'] = self::ENCODING_STATUS_ENCODING;
-            
+
             $return_data['process_file'] = $this->_progress_file;
 
 //          parse out the details of the data into the seperate chunks.
@@ -110,12 +110,12 @@
                 $return_data['percentage'] = ($return_data['duration']->total_seconds/$this->_total_duration->total_seconds)*100;
                 $return_data['dup'] = $parts[$last_key]['dup_frames'];
                 $return_data['drop'] = $parts[$last_key]['drop_frames'];
-                    
+
                 if($parts[$last_key]['progress'] === 'end')
                 {
                     $ended = true;
                     $return_data['finished'] = true;
-                    if($return_data['percentage'] < 99.5)
+                    if($return_data['percentage'] < 97.0)
                     {
                         $return_data['interrupted'] = true;
                         $return_data['status'] = self::ENCODING_STATUS_INTERRUPTED;
@@ -171,7 +171,7 @@
         {
             @unlink($this->_progress_file);
         }
-         
+
         public function attachFfmpegProcess(FfmpegProcess $process, Config $config=null)
         {
             parent::attachFfmpegProcess($process, $config);
