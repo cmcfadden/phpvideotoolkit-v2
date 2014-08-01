@@ -47,7 +47,15 @@
 //          in order to succesfully read the data.
             $copy = $this->_progress_file.'.'.time().'.txt';
             copy($this->_progress_file, $copy);
-            $data = file_get_contents($copy);
+            if(filesize($copy)> 50000) {
+                $offset = filesize($copy) - 20000;
+                $data = file_get_contents($copy, false, null, $offset);
+            }
+            else {
+                $data = file_get_contents($copy);
+            }
+
+
             @unlink($copy);
             return $data;
         }
