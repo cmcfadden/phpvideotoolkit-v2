@@ -82,7 +82,14 @@
             $return_data['process_file'] = $this->_progress_file;
 
 //          parse out the details of the data into the seperate chunks.
-            $parts = preg_split('/frame=/', $raw_data);
+
+            if(strstr($raw_data, "frame=")) {
+                $parts = preg_split('/frame=/', $raw_data);
+            }
+            else {
+                // might be audio?
+                $parts = preg_split('/total_size=/', $raw_data, PREG_SPLIT_DELIM_CAPTURE);
+            }
             array_shift($parts);
 
             foreach ($parts as $key=>$part)
@@ -99,17 +106,24 @@
             }
 
             $ended = false;
+
             if(empty($parts) === false)
             {
                 $last_key = count($parts)-1;
+                if(isset($parts[$last_key]['fps'])) {
+                    $return_data['frame'] = $parts[$last_key]['frames'];
+                    $return_data['fps'] = $parts[$last_key]['fps'];
+                    $return_data['size'] = $parts[$last_key]['total_size'];
 
-                $return_data['frame'] = $parts[$last_key]['frames'];
-                $return_data['fps'] = $parts[$last_key]['fps'];
-                $return_data['size'] = $parts[$last_key]['total_size'];
+                    $return_data['dup'] = $parts[$last_key]['dup_frames'];
+                    $return_data['drop'] = $parts[$last_key]['drop_frames'];
+                }
+                else {
+                    $return_data['fps'] = 0;
+                }
+
                 $return_data['duration'] = new Timecode($parts[$last_key]['out_time'], Timecode::INPUT_FORMAT_TIMECODE);
                 $return_data['percentage'] = ($return_data['duration']->total_seconds/$this->_total_duration->total_seconds)*100;
-                $return_data['dup'] = $parts[$last_key]['dup_frames'];
-                $return_data['drop'] = $parts[$last_key]['drop_frames'];
 
                 if($parts[$last_key]['progress'] === 'end')
                 {
