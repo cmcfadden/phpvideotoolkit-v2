@@ -1,5 +1,5 @@
 <?php
-    
+
     /**
      * This file is part of the PHP Video Toolkit v2 package.
      *
@@ -10,12 +10,12 @@
      * @version 2.1.7-beta
      * @uses ffmpeg http://ffmpeg.sourceforge.net/
      */
-     
+
     namespace PHPVideoToolkit;
 
     /**
      * This class provides generic data parsing for the output from FFmpeg from specific
-     * media files. Parts of the code borrow heavily from Jorrit Schippers version of 
+     * media files. Parts of the code borrow heavily from Jorrit Schippers version of
      * PHPVideoToolkit v 0.1.9.
      *
      * @access public
@@ -30,8 +30,8 @@
          *
          * @access public
          * @author Oliver Lillie
-         * @param string $file_path 
-         * @param boolean $read_from_cache 
+         * @param string $file_path
+         * @param boolean $read_from_cache
          * @return array
          */
         public function getFileInformation($file_path, $read_from_cache=true)
@@ -41,13 +41,13 @@
             {
                 return $data;
             }
-            
+
 //          check to see if the info has already been generated
             if($read_from_cache === true && isset($file_data[$file_path]) === true)
             {
                 return $file_data[$file_path];
             }
-            
+
 //          get the file data
             $data = array(
                 'from-cache'=> true,
@@ -68,14 +68,14 @@
             $data['from-cache'] = false;
             return $data;
         }
-        
+
         /**
          * Returns the files duration as a Timecode object if available otherwise returns false.
          *
          * @access public
          * @author Oliver Lillie
-         * @param string $file_path 
-         * @param boolean $read_from_cache 
+         * @param string $file_path
+         * @param boolean $read_from_cache
          * @return mixed Returns a Timecode object if the duration is found, otherwise returns null.
          */
         public function getFileDuration($file_path, $read_from_cache=true)
@@ -85,10 +85,10 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $raw_data = $this->getFileRawInformation($file_path, $read_from_cache);
-            
+
 //          grab the duration
             $data = null;
             if(preg_match('/Duration:\s+([^,]*)/', $raw_data, $matches) > 0)
@@ -99,14 +99,14 @@
             $this->_cacheSet($cache_key, $data);
             return $data;
         }
-        
+
         /**
          * Returns the files duration as a Timecode object if available otherwise returns false.
          *
          * @access public
          * @author Oliver Lillie
-         * @param string $file_path 
-         * @param boolean $read_from_cache 
+         * @param string $file_path
+         * @param boolean $read_from_cache
          * @return mixed Returns a Timecode object if the duration is found, otherwise returns null.
          */
         public function getFileGlobalMetadata($file_path, $read_from_cache=true)
@@ -116,10 +116,10 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $raw_data = $this->getFileRawInformation($file_path, $read_from_cache);
-            
+
 //          grab the duration
             $data = null;
             if(preg_match('/Metadata:(.*)Duration:/ms', $raw_data, $meta_matches) > 0)
@@ -136,14 +136,14 @@
             $this->_cacheSet($cache_key, $data);
             return $data;
         }
-        
+
         /**
          * Returns the files bitrate if available otherwise returns -1.
          *
          * @access public
          * @author Oliver Lillie
-         * @param string $file_path 
-         * @param boolean $read_from_cache 
+         * @param string $file_path
+         * @param boolean $read_from_cache
          * @return mixed Returns the bitrate as an integer if available otherwise returns -1.
          */
         public function getFileBitrate($file_path, $read_from_cache=true)
@@ -153,10 +153,10 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $raw_data = $this->getFileRawInformation($file_path, $read_from_cache);
-            
+
 //          grab the bitrate
             $data = null;
             if(preg_match('/bitrate:\s+(N\/A|[0-9\.]+\s?[bkBmg\/s]+)/', $raw_data, $matches) > 0)
@@ -167,14 +167,14 @@
             $this->_cacheSet($cache_key, $data);
             return $data;
         }
-        
+
         /**
          * Returns the start point of the file as a Timecode object if available, otherwise returns null.
          *
          * @access public
          * @author Oliver Lillie
-         * @param string $file_path 
-         * @param boolean $read_from_cache 
+         * @param string $file_path
+         * @param boolean $read_from_cache
          * @return mixed Returns a Timecode object if the start point is found, otherwise returns null.
          */
         public function getFileStart($file_path, $read_from_cache=true)
@@ -184,10 +184,10 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $raw_data = $this->getFileRawInformation($file_path, $read_from_cache);
-            
+
 //          grab the bitrate
             $data = null;
             if(preg_match('/start:\s+([^,]*)/', $raw_data, $matches) > 0)
@@ -198,14 +198,14 @@
             $this->_cacheSet($cache_key, $data);
             return $data;
         }
-        
+
         /**
          * Returns the start point of the file as a Timecode object if available, otherwise returns null.
          *
          * @access public
          * @author Oliver Lillie
-         * @param string $file_path 
-         * @param boolean $read_from_cache 
+         * @param string $file_path
+         * @param boolean $read_from_cache
          * @return mixed Returns a string 'audio' or 'video' if media is audio or video, otherwise returns null.
          */
         public function getFileType($file_path, $read_from_cache=true)
@@ -215,9 +215,14 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
-            $raw_data = $this->getFileRawInformation($file_path, $read_from_cache);
+            try {
+                $raw_data = $this->getFileRawInformation($file_path, $read_from_cache);
+            }
+            catch (Exception $e) {
+                return false;
+            }
 
 //          grab the type
             $data = null;
@@ -245,14 +250,14 @@
             $this->_cacheSet($cache_key, $data);
             return $data;
         }
-        
+
         /**
          * Returns any video information about the file if available.
          *
          * @access public
          * @author Oliver Lillie
-         * @param string $file_path 
-         * @param boolean $read_from_cache 
+         * @param string $file_path
+         * @param boolean $read_from_cache
          * @return mixed Returns an array of found data, otherwise returns null.
          */
         public function getFileVideoComponent($file_path, $read_from_cache=true)
@@ -262,7 +267,7 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $raw_data = $this->getFileRawInformation($file_path, $read_from_cache);
 
@@ -298,9 +303,9 @@
                     ),
                     'metadata' => array(),
                 );
-                
+
                 $other_parts = array();
-                
+
 //              get the stream
                 if(preg_match('/#([0-9\:]{3,})/', $matches[0], $stream_matches) > 0)
                 {
@@ -319,7 +324,7 @@
                     $data['pixel_aspect_ratio'] = $ratio_matches[1];
                     $data['display_aspect_ratio'] = $ratio_matches[2];
                 }
-                
+
 //              get the dimension parts
                 if(preg_match('/([1-9][0-9]*)x([1-9][0-9]*)/', $matches[2], $dimensions_matches) > 0)
                 {
@@ -367,10 +372,10 @@
                 }
                 $timebase_match = implode(', ', $timebase_matches[0]);
                 array_push($other_parts, $timebase_match);
-            
+
 //              get the video frames per second
-                $fps = isset($data['time_bases']['fps']) === true ? $data['time_bases']['fps'] : 
-                      (isset($data['time_bases']['tbr']) === true ? $data['time_bases']['tbr'] : 
+                $fps = isset($data['time_bases']['fps']) === true ? $data['time_bases']['fps'] :
+                      (isset($data['time_bases']['tbr']) === true ? $data['time_bases']['tbr'] :
                        false);
                 if ($fps !== false)
                 {
@@ -401,9 +406,9 @@
                     }
                 }
                 $data['pixel_format'] = $formats[1];
-                
+
 //              get the codec details
-                $data['codec']['name'] = 
+                $data['codec']['name'] =
                 $data['codec']['raw'] = isset($formats[0]) === true ? $formats[0] : null;
                 if(preg_match('/([^\s]+)(\s*.*)?/', $data['codec']['raw'], $codec_matches) > 0)
                 {
@@ -435,25 +440,25 @@
                         }
                     }
                 }
-                
+
 //              do we have a meta data rotation?
                 if(isset($data['metadata']['rotate']) === true)
                 {
                     $data['rotation'] = $data['metadata']['rotate'];
                 }
             }
-            
+
             $this->_cacheSet($cache_key, $data);
             return $data;
         }
-        
+
         /**
          * Returns any audio information about the file if available.
          *
          * @access public
          * @author Oliver Lillie
-         * @param string $file_path 
-         * @param boolean $read_from_cache 
+         * @param string $file_path
+         * @param boolean $read_from_cache
          * @return mixed Returns an array of found data, otherwise returns null.
          */
         public function getFileAudioComponent($file_path, $read_from_cache=true)
@@ -463,10 +468,10 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $raw_data = $this->getFileRawInformation($file_path, $read_from_cache);
-            
+
 //          match the audio stream info
             $data = null;
             if(preg_match('/Stream(.*):\s+Audio:\s+(.*)/', $raw_data, $matches) > 0)
@@ -491,9 +496,9 @@
                     ),
                     'metadata'      => array(),
                 );
-                
+
                 $other_parts = array();
-                
+
 //              get the stream
                 if(preg_match('/#([0-9\:]{3,})/', $matches[0], $stream_matches) > 0)
                 {
@@ -513,7 +518,7 @@
                     $data['channels'] = $stereo_matches[0] === 'mono' ? 1 : ($stereo_matches[0] === 'stereo' ? 2 : ($stereo_matches[0] === '5.1' ? 6 : 0));
                     array_push($other_parts, $stereo_matches[0]);
                 }
-                
+
 //              get the sample_rate
                 if(preg_match('/([0-9]{3,6})\s+Hz/', $matches[0], $sample_matches) > 0)
                 {
@@ -543,7 +548,7 @@
                     }
                 }
 //              get the codec details
-                $data['codec']['name'] = 
+                $data['codec']['name'] =
                 $data['codec']['raw'] = isset($formats[0]) === true ? $formats[0] : null;
                 if(preg_match('/([^\s]+)(\s*.*)?/', $data['codec']['raw'], $codec_matches) > 0)
                 {
@@ -561,7 +566,7 @@
                         }
                     }
                 }
-                
+
 //              get metadata from the audio input, (if any)
 //              however if we have a video source in the media it is outputted differently than just pure audio.
                 $meta_data_search_from = strpos($raw_data, $matches[0]);
@@ -591,18 +596,18 @@
                     }
                 }
             }
-            
+
             $this->_cacheSet($cache_key, $data);
             return $data;
         }
-        
+
         /**
          * Returns a boolean value determined by the media having an audio channel.
          *
          * @access public
          * @author Oliver Lillie
-         * @param string $file_path 
-         * @param boolean $read_from_cache 
+         * @param string $file_path
+         * @param boolean $read_from_cache
          * @return boolean
          */
         public function getFileHasAudio($file_path, $read_from_cache=true)
@@ -612,28 +617,28 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $raw_data = $this->getFileRawInformation($file_path, $read_from_cache);
-            
+
 //          match the audio stream info
             $data = false;
             if(preg_match('/Stream.+Audio/', $raw_data, $matches) > 0)
             {
                 $data = true;
             }
-            
+
             $this->_cacheSet($cache_key, $data);
             return $data;
         }
-        
+
         /**
          * Returns a boolean value determined by the media having a video channel.
          *
          * @access public
          * @author Oliver Lillie
-         * @param string $file_path 
-         * @param boolean $read_from_cache 
+         * @param string $file_path
+         * @param boolean $read_from_cache
          * @return boolean
          */
         public function getFileHasVideo($file_path, $read_from_cache=true)
@@ -643,28 +648,28 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $raw_data = $this->getFileRawInformation($file_path, $read_from_cache);
-            
+
 //          match the audio stream info
             $data = false;
             if(preg_match('/Stream.+Video/', $raw_data, $matches) > 0)
             {
                 $data = true;
             }
-            
+
             $this->_cacheSet($cache_key, $data);
             return $data;
         }
-        
+
         /**
          * Returns the raw data provided by ffmpeg about a file.
          *
          * @access public
          * @author Oliver Lillie
-         * @param string $file_path 
-         * @param boolean $read_from_cache 
+         * @param string $file_path
+         * @param boolean $read_from_cache
          * @return mixed Returns false if no data is returned, otherwise returns the raw data as a string.
          */
         public function getFileRawInformation($file_path, $read_from_cache=true)
@@ -683,11 +688,11 @@
             $raw_data = $exec->setInputPath($real_file_path)
                              ->execute()
                              ->getBuffer();
-            
+
 //          check the process for any errors.
             if($exec->hasError() === true && ($last_line = $exec->getLastLine()) !== 'At least one output file must be specified')
             {
-                throw new FfmpegProcessException('FFmpeg encountered an error when attempting to read `'.$file_path.'`. FFmpeg reported: 
+                throw new FfmpegProcessException('FFmpeg encountered an error when attempting to read `'.$file_path.'`. FFmpeg reported:
 '.$raw_data, null, $exec);
             }
 
@@ -696,7 +701,7 @@
             {
                 // TODO possible error/exception here.
             }
-            
+
             $this->_cacheSet($cache_key, $raw_data);
             return $raw_data;
         }
