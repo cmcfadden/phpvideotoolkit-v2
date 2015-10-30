@@ -157,8 +157,6 @@
                 case 'ffmpeg' :
                 case 'ffprobe' :
                 case 'yamdi' :
-                case 'qtfaststart' :
-                case 'gifsicle' :
                 case 'convert' :
 
                     if($value !== null)
