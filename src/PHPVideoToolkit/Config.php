@@ -177,7 +177,10 @@
                     $this->{'_'.$key} = $value;
 
                     return;
-
+                case 'qtfaststart' :
+                case 'gifsicle' :
+                    $this->{'_'.$key} = $value;
+                    return;
                 case 'gif_transcoder' :
 
                     if(in_array($value, array('gifsicle', 'convert', 'php', null)) === false)
