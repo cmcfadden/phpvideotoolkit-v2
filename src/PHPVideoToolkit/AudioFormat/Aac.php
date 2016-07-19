@@ -18,7 +18,7 @@
      *
      * @author Oliver Lillie
      */
-    class AudioFormat_Acc extends AudioFormat
+    class AudioFormat_Aac extends AudioFormat
     {
         /**
          * Constructor
@@ -35,10 +35,10 @@
             
             if($input_output_type === 'output')
             {
-                $this->setAudioCodec('acc')
-                     ->setFormat('acc');
+                $this->setAudioCodec('aac')
+                     ->setFormat('aac');
             }
             
-            $this->_restricted_audio_codecs = array('libfdk_aac', 'acc');
+            $this->_restricted_audio_codecs = array('libfdk_aac', 'aac');
         }
     }
