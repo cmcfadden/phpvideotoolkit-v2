@@ -932,7 +932,7 @@
 //              insert a unique id into the save path
                 case self::OVERWRITE_UNIQUE :
                     $pathinfo = pathinfo($save_path);
-                    $save_path = $pathinfo['dirname'].DIRECTORY_SEPARATOR.$pathinfo['filename'].'-u_'.String::generateRandomString().'.'.$pathinfo['extension'];
+                    $save_path = $pathinfo['dirname'].DIRECTORY_SEPARATOR.$pathinfo['filename'].'-u_'.Str::generateRandomString().'.'.$pathinfo['extension'];
                     break;
             }
             $this->_output_path =
@@ -1071,7 +1071,7 @@
 
 //              add a unique identifier to the processing path to prevent overwrites.
                 $pathinfo = pathinfo($processing_path);
-                $this->_processing_path = $pathinfo['dirname'].DIRECTORY_SEPARATOR.$pathinfo['filename'].'._u.'.String::generateRandomString().'.u_.'.$pathinfo['extension'];
+                $this->_processing_path = $pathinfo['dirname'].DIRECTORY_SEPARATOR.$pathinfo['filename'].'._u.'.Str::generateRandomString().'.u_.'.$pathinfo['extension'];
             }
         }
 
