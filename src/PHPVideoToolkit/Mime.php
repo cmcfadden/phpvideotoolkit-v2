@@ -187,7 +187,7 @@
 
                          default:
                             // date, ldate, ledate, leldate, beldate, lebelbe...
-                            continue;
+                           break;
                       }
                    }
                
