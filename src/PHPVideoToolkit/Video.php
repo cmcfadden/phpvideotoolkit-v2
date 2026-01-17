@@ -30,7 +30,7 @@
         
         protected $_extracting_audio;
         
-        public function __construct($video_file_path, Config $config=null, VideoFormat $video_input_format=null, $ensure_video_file=true)
+        public function __construct($video_file_path, ?Config $config=null, ?VideoFormat $video_input_format=null, $ensure_video_file=true)
         {
             parent::__construct($video_file_path, $config, $video_input_format);
             
@@ -71,7 +71,7 @@
             return $this;
         }
         
-        public function extractFrames(Timecode $from_timecode=null, Timecode $to_timecode=null, $force_frame_rate=null)
+        public function extractFrames(?Timecode $from_timecode=null, ?Timecode $to_timecode=null, $force_frame_rate=null)
         {
             if($this->_extracting_frame === true)
             {
@@ -91,7 +91,7 @@
             return $this;
         }
         
-        protected function _savePreProcess(&$save_path, $overwrite, Format &$output_format=null, ProgressHandlerAbstract &$progress_handler=null)
+        protected function _savePreProcess(&$save_path, $overwrite, ?Format &$output_format=null, ?ProgressHandlerAbstract &$progress_handler=null)
         {
             parent::_savePreProcess($save_path, $overwrite, $output_format);
             
@@ -127,7 +127,7 @@
          * @param Format &$output_format 
          * @return void
          */
-        protected function _processOutputFormat(&$save_path, $overwrite, Format &$output_format=null)
+        protected function _processOutputFormat(&$save_path, $overwrite, ?Format &$output_format=null)
         {
             parent::_processOutputFormat($save_path, $overwrite, $output_format);
             

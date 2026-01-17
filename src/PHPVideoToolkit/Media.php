@@ -64,7 +64,7 @@
          * @param Config $config A PHPVideoToolkit Config object
          * @param Format $input_format An input Format object
          */
-        public function __construct($media_file_path, Config $config=null, Format $input_format=null)
+        public function __construct($media_file_path, ?Config $config=null, ?Format $input_format=null)
         {
             parent::__construct($config, 'ffmpeg');
 
@@ -130,7 +130,7 @@
          * @param Format $input_format
          * @return self
          */
-        public function setInputFormat(Format $input_format=null)
+        public function setInputFormat(?Format $input_format=null)
         {
 //          create a default input format if none is set.
             if($input_format === null)
@@ -326,12 +326,12 @@
          *
          * @access public
          * @author Oliver Lillie
-         * @param Timecode $from_timecode
-         * @param Timecode $to_timecode
+         * @param Timecode|null $from_timecode
+         * @param Timecode|null $to_timecode
          * @param boolean $accurate If true then accuracy is prefered over performance.
          * @return Media
          */
-        public function extractSegment(Timecode $from_timecode=null, Timecode $to_timecode=null, $accurate=false)
+        public function extractSegment(?Timecode $from_timecode=null, ?Timecode $to_timecode=null, $accurate=false)
         {
 //          check that a segment extract has not already been set
             if(empty($this->_extract_segment) === false)
@@ -678,7 +678,7 @@
          * @param  Format $output_format An output format object.
          * @return MultiObject
          */
-        protected function _convertOutputPathToMultiOutput($save_path=null, Format $output_format=null)
+        protected function _convertOutputPathToMultiOutput($save_path=null, ?Format $output_format=null)
         {
             $class = 'PHPVideoToolkit\MultiOutput'; // prevents unneccesary autoload.
             if($save_path instanceof $class === true)
@@ -712,7 +712,7 @@
          *  Media object on a successfull completion, otherwise an exception is thrown. If the blocking
          *  mode is non blocking then the underlying FfmpegProcess is returned.
          */
-        public function save($save_path=null, Format $output_format=null, $overwrite=Media::OVERWRITE_FAIL, ProgressHandlerAbstract &$progress_handler=null)
+        public function save($save_path=null, ?Format $output_format=null, $overwrite=Media::OVERWRITE_FAIL, ?ProgressHandlerAbstract &$progress_handler=null)
         {
 //          set the input files.
             $this->_process->setInputPath($this->_media_file_path);
@@ -800,7 +800,7 @@
          *  The last error message is set to Media->last_error_message. A full list of error messages is
          *  available through Media->error_messages.
          */
-        public function saveNonBlocking($save_path=null, Format $output_format=null, $overwrite=self::OVERWRITE_FAIL, ProgressHandlerAbstract &$progress_handler=null)
+        public function saveNonBlocking($save_path=null, ?Format $output_format=null, $overwrite=self::OVERWRITE_FAIL, ?ProgressHandlerAbstract &$progress_handler=null)
         {
 //          check to see if the blocking mode has already been set to true. If it has we cannot save
 //          non-blocking and must trigger error.
@@ -836,7 +836,7 @@
          * @param string $overwrite
          * @return void
          */
-        protected function _savePreProcess(&$save_path, $overwrite, Format &$output_format=null)
+        protected function _savePreProcess(&$save_path, $overwrite, ?Format &$output_format=null)
         {
 //          do some processing on the input format
             // $this->_processInputFormat();
@@ -1083,7 +1083,7 @@
          * @param Format &$output_format
          * @return void
          */
-        protected function _processOutputFormat(&$save_path, $overwrite, Format &$output_format=null)
+        protected function _processOutputFormat(&$save_path, $overwrite, ?Format &$output_format=null)
         {
 //          check to see if we have been set and output format, if not generate an empty one.
             if($output_format === null)
@@ -1111,7 +1111,7 @@
          * @param Format $output_format
          * @return void
          */
-        protected function _saveAddOutputFormatCommands(Format $output_format=null)
+        protected function _saveAddOutputFormatCommands(?Format $output_format=null)
         {
             if($output_format !== null)
             {

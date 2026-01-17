@@ -24,7 +24,7 @@
         protected $_input;
         protected $_output;
 
-        public function __construct($callback=null, Config $config=null)
+        public function __construct($callback=null, ?Config $config=null)
         {
 //          check that the "-progress" function is available.
             $parser = new FfmpegParser($config);
@@ -96,7 +96,7 @@
             }
             else {
                 // might be audio?
-                $parts = preg_split('/total_size=/', $raw_data, PREG_SPLIT_DELIM_CAPTURE);
+                $parts = preg_split('/total_size=/', $raw_data, -1, PREG_SPLIT_DELIM_CAPTURE);
             }
             array_shift($parts);
 
