@@ -27,7 +27,8 @@
         protected $_temp_directory;
         protected $_cacher;
         static $_cache = array();
-        
+        public $_config;
+
         public function __construct(Config $config=null, $program_config_key='ffmpeg')
         {
             $this->_config = $config === null ? Config::getInstance() : $config;

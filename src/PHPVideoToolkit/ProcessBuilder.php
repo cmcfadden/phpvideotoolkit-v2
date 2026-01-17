@@ -25,6 +25,7 @@
     {
         protected $_program_path;
         protected $_arguments;
+        public $config;
 
         public function __construct($program, $config=null)
         {
