@@ -29,7 +29,7 @@
         static $_cache = array();
         public $_config;
 
-        public function __construct(Config $config=null, $program_config_key='ffmpeg')
+        public function __construct(?Config $config=null, $program_config_key='ffmpeg')
         {
             $this->_config = $config === null ? Config::getInstance() : $config;
 
@@ -53,7 +53,7 @@
          * @param CacheAbstract $cache_object 
          * @return void
          */
-        public function setCacher(CacheAbstract $cache_object=null)
+        public function setCacher(?CacheAbstract $cache_object=null)
         {
             $this->_cacher = $cache_object;
         }

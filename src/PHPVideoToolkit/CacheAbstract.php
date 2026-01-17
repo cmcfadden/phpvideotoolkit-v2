@@ -24,7 +24,7 @@
 
         protected $_key_prefix = 'phpvideotoolkit_v2';
         
-        public function __construct(Config $config=null)
+        public function __construct(?Config $config=null)
         {
             $this->_config = $config === null ? Config::getInstance() : $config;
             if($this->isAvailable() === false)

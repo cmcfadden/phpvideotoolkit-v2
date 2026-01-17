@@ -35,7 +35,7 @@
          * @param  Format $output_format If provided then it is given as the initial output paths's output format object.
          * @param  Config $config The PHPVideoToolkit configuration options.
          */
-        public function __construct(Config $config=null)
+        public function __construct(?Config $config=null)
         {
             $this->_config = $config === null ? Config::getInstance() : $config;
 
@@ -74,7 +74,7 @@
          * @param  Format $output_format The output Format object of the output format. If null is supplied then a best
          *  guess format object is generated and used.
          */
-        public function addOutput($output_path, Format $output_format=null)
+        public function addOutput($output_path, ?Format $output_format=null)
         {
             if(isset($this->_output[$output_path]) === true)
             {

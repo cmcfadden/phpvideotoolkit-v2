@@ -31,7 +31,7 @@
          * @author: Oliver Lillie
          * @param  PHPVideoToolkit\Config $config The config object.
          */
-        public function __construct(Config $config=null)
+        public function __construct(?Config $config=null)
         {
             $this->_config = $config === null ? Config::getInstance() : $config;
             $this->_parser = null;

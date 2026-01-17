@@ -35,7 +35,7 @@
 
         public $completed;
                  
-        public function __construct($callback=null, Config $config=null)
+        public function __construct($callback=null, ?Config $config=null)
         {
             if($callback !== null && is_callable($callback) === false)
             {

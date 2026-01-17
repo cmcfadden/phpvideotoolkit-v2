@@ -25,9 +25,9 @@
     {
         protected $_program_path;
         protected $_arguments;
-        public $config;
+        public $_config;
 
-        public function __construct($program, $config=null)
+        public function __construct($program, ?Config $config=null)
         {
             $this->_config = $config === null ? Config::getInstance() : $config;
             
