@@ -22,7 +22,7 @@
 
         public static function where($output=true)
         {   
-            $path = dirname(dirname(dirname(__FILE__)));
+            $path = dirname(dirname(__DIR__));
             $stack = debug_backtrace();
             array_shift($stack);
             $deets = array_shift($stack);
@@ -42,7 +42,7 @@
             
             $output = '';  
             
-            $path = dirname(dirname(dirname(__FILE__)));
+            $path = dirname(dirname(__DIR__));
             $trace = self::where(false);
             if($arg_count === 0)
             { 

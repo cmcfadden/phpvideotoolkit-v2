@@ -77,7 +77,7 @@
       
           #-- read in magic data, when called for the very first time
           if (!isset($mime_content_type)) {
-      
+
              if ((file_exists($fn = ini_get("mime_magic.magicfile")))
               or (file_exists($fn = "/usr/share/misc/magic.mime"))
               or (file_exists($fn = PATH.'application'.DS.'binaries'.DS.'magic'))
@@ -167,14 +167,14 @@
                          case "byte":
                             $len = 1;
                             break;
-                        
+
                          case "beshort":
                             $magic = ($magic >> 8) | (($magic & 0xFF) << 8);
                          case "leshort":
                          case "short":
                             $len = 2;
                             break;
-                     
+
                          case "belong":
                             $magic = (($magic >> 24) & 0xFF)
                                    | (($magic >> 8) & 0xFF00)
@@ -190,7 +190,7 @@
                            break;
                       }
                    }
-               
+
                    #-- add to list
                    $mime_magic_data[] = array($pos, $len, $mask, $magic, trim($ct));
                 }

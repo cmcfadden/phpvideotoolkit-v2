@@ -362,7 +362,7 @@
             }
             
 //          check to see if an adapter exists
-            $base_dir = dirname(dirname(__FILE__));
+            $base_dir = dirname(__DIR__);
             if(   is_file($base_dir.'/emulators/ffmpeg-php/ffmpeg_movie.php') === true
                && is_file($base_dir.'/emulators/ffmpeg-php/ffmpeg_frame.php') === true
                && is_file($base_dir.'/emulators/ffmpeg-php/ffmpeg_animated_gif.php') === true)

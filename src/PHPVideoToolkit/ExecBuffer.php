@@ -553,7 +553,7 @@
          */
         public function getBuffer()
         {
-            return rtrim(preg_replace(array('/'.$this->_failure_boundary.'/', '/'.$this->_completion_boundary.'/', '/'.$this->_error_code_boundary.(self::$_is_windows === false ? '([0-9]+)' : '').'/'), '', $this->getRawBuffer()));
+            return rtrim(preg_replace(array('/'.$this->_failure_boundary.'/', '/'.$this->_completion_boundary.'/', '/'.$this->_error_code_boundary.(self::$_is_windows === false ? '([0-9]+)' : '').'/'), '', $this->getRawBuffer()?:''));
         }
         
         /**
@@ -629,7 +629,7 @@
                 $this->getBuffer();
             }
             
-            return strpos($this->_buffer, $this->_failure_boundary) !== false;
+            return strpos($this->_buffer?:'', $this->_failure_boundary) !== false;
         }
         
         /**
@@ -730,7 +730,7 @@
                 $this->getBuffer();
             }
             
-            return strpos($this->_buffer, $this->_completion_boundary) !== false;
+            return strpos($this->_buffer?:'', $this->_completion_boundary) !== false;
         }
         
         /**

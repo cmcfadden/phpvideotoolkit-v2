@@ -399,11 +399,11 @@
             {
 //              determine what we have to rename all the files to.
                 $convert_back_to = $matches[4] === 't' ? 'timecode' : (int) $matches[2];
-                
+
 //              get the glob path and then find all the files from this output
                 $output_glob_path = str_replace($matches[0], '.*.'.$matches[3].'_'.$matches[4].'.', $output_path);
                 $outputted_files = glob($output_glob_path);
-                
+
 //              sort the output naturally so that if there is no index padding that we get the frames in the correct order.
                 natsort($outputted_files);
 
@@ -431,13 +431,13 @@
                         $actual_path = preg_replace('/\.([0-9]+)\._i\./', '$1', $path);
                     }
                     $actual_path = preg_replace('/\._u\.[0-9]{5}_[a-z0-9]{5}_[0-9]+\.u_\./', '.', $actual_path);
-                    
+
                     rename($path, $actual_path);
-                    
+
                     array_push($output, $actual_path);
                 }
                 unset($outputted_files);
-                
+
                 // TODO create the multiple image output
             }
 

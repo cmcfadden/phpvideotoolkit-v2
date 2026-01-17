@@ -91,9 +91,9 @@
             return $this;
         }
         
-        protected function _savePreProcess(Format &$output_format=null, &$save_path, $overwrite, ProgressHandlerAbstract &$progress_handler=null)
+        protected function _savePreProcess(&$save_path, $overwrite, Format &$output_format=null, ProgressHandlerAbstract &$progress_handler=null)
         {
-            parent::_savePreProcess($output_format, $save_path, $overwrite, $progress_handler);
+            parent::_savePreProcess($save_path, $overwrite, $output_format);
             
 //          if we are splitting the output
             if(empty($this->_split_options) === false)
@@ -127,9 +127,9 @@
          * @param Format &$output_format 
          * @return void
          */
-        protected function _processOutputFormat(Format &$output_format=null, &$save_path, $overwrite)
+        protected function _processOutputFormat(&$save_path, $overwrite, Format &$output_format=null)
         {
-            parent::_processOutputFormat($output_format, $save_path, $overwrite);
+            parent::_processOutputFormat($save_path, $overwrite, $output_format);
             
 //          turn off the related options.
             if($this->_extracting_audio === true)

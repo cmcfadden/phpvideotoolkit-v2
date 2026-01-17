@@ -70,9 +70,9 @@
          * @param  PHPVideoToolkit\ProgressHandlerAbstract $progress_handler The progress handler attached to the save, if any.
          * @return void
          */
-        protected function _savePreProcess(Format &$output_format=null, &$save_path, $overwrite, ProgressHandlerAbstract &$progress_handler=null)
+        protected function _savePreProcess(&$save_path, $overwrite, Format &$output_format=null, ProgressHandlerAbstract &$progress_handler=null)
         {
-            parent::_savePreProcess($output_format, $save_path, $overwrite, $progress_handler);
+            parent::_savePreProcess($save_path, $overwrite, $output_format);
 
 //          if we are splitting the output
             if(empty($this->_split_options) === false)
@@ -103,9 +103,9 @@
          * @return void
          * @throws \LogicException If audio is disabled and no layers, prepends or appends are found.
          */
-        protected function _processOutputFormat(Format &$output_format=null, &$save_path, $overwrite)
+        protected function _processOutputFormat(&$save_path, $overwrite, Format &$output_format=null)
         {
-            parent::_processOutputFormat($output_format, $save_path, $overwrite);
+            parent::_processOutputFormat($save_path, $overwrite, $output_format);
 
 //          check for conflictions with having audio disabled.
             $options = $output_format->getFormatOptions();

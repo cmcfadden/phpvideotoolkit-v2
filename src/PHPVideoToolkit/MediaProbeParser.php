@@ -29,7 +29,7 @@
         {
             parent::__construct($config, 'probe');
         }
-        
+
         /**
          * Returns the information about a specific media file.
          *
@@ -46,7 +46,7 @@
             {
                 return $data;
             }
-            
+
 //          get the file data
             $data = array(
                 'from-cache'=> true,
@@ -67,7 +67,7 @@
             $data['from-cache'] = false;
             return $data;
         }
-        
+
         /**
          * Returns the files duration as a Timecode object if available otherwise returns false.
          *
@@ -84,10 +84,10 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $raw_data = $this->getFileRawInformation($file_path, $read_from_cache);
-            
+
 //          grab the duration times from all the streams and evaluate the longest.
             $data = null;
             if(preg_match_all('/duration=(.+)/', $raw_data, $matches) > 0)
@@ -123,10 +123,10 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $format_data = $this->getFileFormat($file_path, $read_from_cache);
-            
+
 //          grab the duration times from all the streams and evaluate the longest.
             $data = null;
             if(isset($format_data['metadata']) === true && empty($format_data['metadata']) === false)
@@ -137,7 +137,7 @@
             $this->_cacheSet($cache_key, $data);
             return $data;
         }
-        
+
         /**
          * Returns the files bitrate if available otherwise returns -1.
          *
@@ -154,13 +154,13 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $video_data = $this->getFileVideoComponent($file_path, $read_from_cache);
-            
+
             return $file_data[$file_path] = empty($video_data['bitrate']) === false ? $video_data['bitrate'] : -1;
         }
-        
+
         /**
          * Returns the start point of the file as a Timecode object if available, otherwise returns null.
          *
@@ -177,10 +177,10 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $raw_data = $this->getFileRawInformation($file_path, $read_from_cache);
-            
+
 //          grab the start times from all the streams and evaluate the earliest.
             $data = null;
             if(preg_match_all('/start_time=(.+)/', $raw_data, $matches) > 0)
@@ -217,10 +217,10 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $raw_data = $this->getFileRawInformation($file_path, $read_from_cache);
-            
+
 //          grab the start times from all the streams and evaluate the earliest.
             $data = null;
             if(preg_match_all('/codec_type=(audio|video)/', $raw_data, $matches) > 0)
@@ -243,7 +243,7 @@
             $this->_cacheSet($cache_key, $data);
             return $data;
         }
-        
+
         /**
          * Returns any video information about the file if available.
          *
@@ -260,10 +260,10 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $streams = $this->getFileStreams($file_path, $read_from_cache);
-            
+
 //          match the audio stream info
             $data = null;
             if(empty($streams) === false)
@@ -278,7 +278,7 @@
                         break;
                     }
                 }
-                
+
 //              process the stream data into a sane array
                 if($data_stream !== null)
                 {
@@ -327,11 +327,11 @@
                     // nb_read_packets=N/A
                 }
             }
-            
+
             $this->_cacheSet($cache_key, $data);
             return $data;
         }
-        
+
         /**
          * Returns any audio information about the file if available.
          *
@@ -348,10 +348,10 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $streams = $this->getFileStreams($file_path, $read_from_cache);
-            
+
 //          match the audio stream info
             $data = null;
             if(empty($streams) === false)
@@ -366,7 +366,7 @@
                         break;
                     }
                 }
-                
+
 //              process the stream data into a sane array
                 if($data_stream !== null)
                 {
@@ -402,7 +402,7 @@
                         'disposition'       => isset($data_stream['disposition']) === true ? $data_stream['disposition'] : null,
                     );
                     $data['codec']['raw']   = trim($data['codec']['name'].' ('.trim($data['codec']['tag_string'].' / '.$data['codec']['tag'], '/').')');
-                    
+
                     // Unused but available data within the stream
                     // id=N/A
                     // time_base=1/48000
@@ -413,11 +413,11 @@
                     // nb_read_packets=N/A
                 }
             }
-            
+
             $this->_cacheSet($cache_key, $data);
             return $data;
         }
-        
+
         /**
          * Returns a boolean value determined by the media having an audio channel.
          *
@@ -434,10 +434,10 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $streams = $this->getFileStreams($file_path, $read_from_cache);
-            
+
 //          match the audio stream info
             $data = false;
             if(empty($streams) === false)
@@ -451,11 +451,11 @@
                     }
                 }
             }
-            
+
             $this->_cacheSet($cache_key, $data);
             return $data;
         }
-        
+
         /**
          * Returns a boolean value determined by the media having a video channel.
          *
@@ -472,10 +472,10 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $streams = $this->getFileStreams($file_path, $read_from_cache);
-            
+
 //          match the audio stream info
             $data = false;
             if(empty($streams) === false)
@@ -489,11 +489,11 @@
                     }
                 }
             }
-            
+
             $this->_cacheSet($cache_key, $data);
             return $data;
         }
-        
+
         /**
          * Returns prober specific format data. The date returned is automatically
          * split into key/value pairs, however the data should be considered "raw".
@@ -511,12 +511,12 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $raw_data = $this->getFileRawInformation($file_path, $read_from_cache);
             $raw_data = trim(substr($raw_data, strpos($raw_data, '[FORMAT]')+8, strpos($raw_data, '[/FORMAT]')));
             $raw_data = explode("\n", $raw_data);
-            
+
 //          process each line of data
             $data = array();
             foreach($raw_data as $line)
@@ -528,9 +528,9 @@
                 {
                     continue;
                 }
-                
+
                 $value = trim(implode('=', $chunks));
-                
+
                 if(strpos($key, 'TAG:') === 0)
                 {
                     if(isset($data[$index]['metadata']) === false)
@@ -543,12 +543,12 @@
 
                 $data[$index][$key] = $value;
             }
-            
+
 //          cache info and return
             $this->_cacheSet($cache_key, $data);
             return $data;
         }
-        
+
         /**
          * Returns prober specific streams data. The date returned is automatically
          * split into key/value pairs, however the data should be considered "raw".
@@ -566,12 +566,12 @@
             {
                 return $data;
             }
-            
+
 //          get the raw data
             $raw_data = $this->getFileRawInformation($file_path, $read_from_cache);
             $raw_data = trim(substr($raw_data, strpos($raw_data, '[STREAM]')+8, strrpos($raw_data, '[/STREAM]')));
             $raw_data = explode("\n", $raw_data);
-            
+
 //          process each line of data
             $data = array();
             $index = 0;
@@ -595,9 +595,9 @@
                 {
                     continue;
                 }
-                
+
                 $value = trim(implode('=', $chunks));
-                
+
                 if(strpos($key, 'TAG:') === 0)
                 {
                     if(isset($data[$index]['metadata']) === false)
@@ -619,12 +619,12 @@
 
                 $data[$index][$key] = $value;
             }
-            
+
 //          cache info and return
             $this->_cacheSet($cache_key, $data);
             return $data;
         }
-        
+
         /**
          * Returns the raw data provided by ffmpeg about a file.
          *
@@ -652,25 +652,25 @@
                              ->addCommand('-show_format')
                              ->execute()
                              ->getBuffer();
-            
+
 //          check the process for any errors.
             if($exec->hasError() === true)
             {
                 throw new FfmpegProcessException('FFprobe encountered an error when attempting to read `'.$file_path.'`. FFprobe reported: '.$exec->getLastLine(), null, $exec);
             }
-            
+
 //          check that some data has been obtained
             $data = array();
             if(empty($raw_data) === true)
             {
                 // TODO possible error/exception here.
             }
-            
+
             $this->_cacheSet($cache_key, $data);
             return $data;
         }
     }
-    
+
     /**
      * TODO
      * -sections           print sections structure and section information, and exit

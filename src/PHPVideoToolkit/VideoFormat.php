@@ -575,13 +575,13 @@
                 $this->_format['video_bitrate'] = null;
                 return $this;
             }
-            
+
 //          expand out any short hand
             if(preg_match('/^[0-9]+k$/', $bitrate) > 0)
             {
                 // TODO make this exapnd out the kbs values
             }
-            
+
 //          now check the class settings to see if restricted codecs have been set and have to be obeys
             if($this->_restricted_video_bitrates !== null)
             {
@@ -590,10 +590,10 @@
                     throw new Exception('The bitrate "'.$bitrate.'" cannot be set in \\PHPVideoToolkit\\'.get_class($this).'::setVideoBitrate. Please select one of the following bitrates: '.implode(', ', $this->_restricted_video_bitrates));
                 }
             }
-            
+
             $this->_format['video_bitrate'] = $bitrate;
             return $this;
-            
+
             //throw new Exception('Unrecognised video bitrate "'.$bitrate.'" set in \\PHPVideoToolkit\\'.get_class($this).'::setVideoBitrate');
         }
         

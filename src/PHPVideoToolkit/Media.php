@@ -727,7 +727,7 @@
                 $index += 1;
 
 //              pre process all of the common functionality and pre process the output format.
-                $this->_savePreProcess($output_format, $save_path, $overwrite);
+                $this->_savePreProcess($save_path, $overwrite, $output_format);
 
 //              add the commands from the output format to the exec buffer
 //              NOTE; this cannot be done in _savePreProcess as it must be done after, to ensure all the subclass
@@ -836,7 +836,7 @@
          * @param string $overwrite
          * @return void
          */
-        protected function _savePreProcess(Format &$output_format=null, &$save_path, $overwrite)
+        protected function _savePreProcess(&$save_path, $overwrite, Format &$output_format=null)
         {
 //          do some processing on the input format
             // $this->_processInputFormat();
@@ -849,7 +849,7 @@
             }
 
 //          do some pre processing of the output format
-            $this->_processOutputFormat($output_format, $save_path, $overwrite);
+            $this->_processOutputFormat($save_path, $overwrite, $output_format);
 
 //          check the save path.
             $has_timecode_or_index = false;
@@ -1083,7 +1083,7 @@
          * @param Format &$output_format
          * @return void
          */
-        protected function _processOutputFormat(Format &$output_format=null, &$save_path, $overwrite)
+        protected function _processOutputFormat(&$save_path, $overwrite, Format &$output_format=null)
         {
 //          check to see if we have been set and output format, if not generate an empty one.
             if($output_format === null)
