@@ -43,6 +43,7 @@
             $this->_output = array();
         }
 
+        #[\ReturnTypeWillChange]
         public function getIterator()
         {
             return new \ArrayIterator($this->_output);

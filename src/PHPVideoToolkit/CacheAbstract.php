@@ -21,7 +21,7 @@
     abstract class CacheAbstract implements CacheInterface
     {
         protected $_config;
-
+        public $_cache;
         protected $_key_prefix = 'phpvideotoolkit_v2';
         
         public function __construct(?Config $config=null)
