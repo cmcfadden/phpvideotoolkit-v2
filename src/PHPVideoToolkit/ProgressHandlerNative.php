@@ -158,7 +158,7 @@
                     $total_fps = 0;
                     foreach ($parts as $part)
                     {
-                        $total_fps += $part['fps'];
+                        $total_fps += $part['fps']??0;
                     }
                     $return_data['fps_avg'] = $total_fps/($last_key+1);
                 }
