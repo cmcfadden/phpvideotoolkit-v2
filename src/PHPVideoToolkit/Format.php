@@ -98,7 +98,7 @@
          * @param  PHPVideoToolkit\Config $config The config object.
          * @throws \InvalidArgumentException If the $input_output_type is not valid.
          */
-        public function __construct($input_output_type=Format::OUTPUT, Config $config=null)
+        public function __construct($input_output_type=Format::OUTPUT, ?Config $config=null)
         {
             parent::__construct($config);
 

@@ -25,7 +25,7 @@
      */
     class Image extends Media
     {
-        public function __construct($video_file_path, Config $config=null, ImageFormat $video_input_format=null, $ensure_image_file=true)
+        public function __construct($video_file_path, ?Config $config=null, ?ImageFormat $video_input_format=null, $ensure_image_file=true)
         {
             parent::__construct($video_file_path, $config, $video_input_format);
             

@@ -93,7 +93,7 @@
          *  supply 'ffmpeg' and then set the aconv path as the ffmpeg configuration option in Config.   
          * @param PHPVideoToolkit\Config $config The config object.
          */
-        public function __construct($program, Config $config=null)
+        public function __construct($program, ?Config $config=null)
         {
             parent::__construct($program, $config);
             

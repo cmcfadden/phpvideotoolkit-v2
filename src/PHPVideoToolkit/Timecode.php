@@ -478,7 +478,7 @@
          *      then you can set the media object using this parameter.
          * @return integer Returns a positive value in seconds if successfull, alternatively returns -1 and a frame rate error.
          */
-        public static function parseTimecode($input_value, $input_format, $frames_per_second=null, Media $media=null)
+        public static function parseTimecode($input_value, $input_format, $frames_per_second=null, ?Media $media=null)
         {
 //          first we must get the timecode into the current seconds
             $input_quoted = preg_quote($input_format);

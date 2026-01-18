@@ -29,7 +29,7 @@
          *  or PHPVideoToolkit\Format::OUTPUT
          * @param  PHPVideoToolkit\Config $config The config object.
          */
-        public function __construct($input_output_type=Format::OUTPUT, Config $config=null)
+        public function __construct($input_output_type=Format::OUTPUT, ?Config $config=null)
         {
             parent::__construct($input_output_type, $config);
             

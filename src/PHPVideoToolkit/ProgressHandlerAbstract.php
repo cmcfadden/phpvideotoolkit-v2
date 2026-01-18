@@ -101,7 +101,7 @@
             }
         }
         
-        public function attachFfmpegProcess(FfmpegProcess $process, Config $config=null)
+        public function attachFfmpegProcess(FfmpegProcess $process, ?Config $config=null)
         {
             if($config !== null)
             {

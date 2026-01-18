@@ -18,7 +18,7 @@
         protected $process;
         protected $exec;
         
-        public function __construct($message = null, ExceBuffer $exec=null, FfmpegProcess $process=null, $code = 0, Exception $previous=null)
+        public function __construct($message = null, ?ExceBuffer $exec=null, ?FfmpegProcess $process=null, $code = 0, ?Exception $previous=null)
         {
             parent::__construct($message, $code, $previous);
             

@@ -61,7 +61,7 @@
          * @throws \LogicException If the chosen gif transcoder engine is not available on the current system.
          * @throws \LogicException If none of the transcoder engines are available on your system.
          */
-        public function __construct($gif_path=null, Config $config=null)
+        public function __construct($gif_path=null, ?Config $config=null)
         {
             $this->_config = $config === null ? Config::getInstance() : $config;
             
@@ -177,7 +177,7 @@
          * @throws \InvalidArgumentException If the $frame_delay is less than 0 or not an integer or float.
          * @throws \InvalidArgumentException If any of the values within $image_object_array is not an instance of PHPVideoToolkit\Image.
          */
-        public static function createFrom(array $image_object_array, $frame_delay, $loop_count=self::UNLIMITED_LOOPS, Config $config=null)
+        public static function createFrom(array $image_object_array, $frame_delay, $loop_count=self::UNLIMITED_LOOPS, ?Config $config=null)
         {
             if(empty($image_object_array) === true)
             {

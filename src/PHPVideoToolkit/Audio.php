@@ -32,7 +32,7 @@
          * @param  boolean $ensure_audio_file If true an additional check is made to ensure the the given file is actually an audio file.
          * @throws \LogicException If $ensure_audio_file is true but the file is not audio.
          */
-        public function __construct($audio_file_path, Config $config=null, AudioFormat $audio_input_format=null, $ensure_audio_file=true)
+        public function __construct($audio_file_path, ?Config $config=null, ?AudioFormat $audio_input_format=null, $ensure_audio_file=true)
         {
             parent::__construct($audio_file_path, $config, $audio_input_format);
 

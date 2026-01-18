@@ -15,7 +15,7 @@
 
     interface CacheInterface
     {
-        public function __construct(Config $config=null);
+        public function __construct(?Config $config=null);
         
         public function isAvailable();
         

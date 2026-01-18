@@ -194,7 +194,7 @@
             @unlink($this->_progress_file);
         }
 
-        public function attachFfmpegProcess(FfmpegProcess $process, Config $config=null)
+        public function attachFfmpegProcess(FfmpegProcess $process, ?Config $config=null)
         {
             parent::attachFfmpegProcess($process, $config);
 

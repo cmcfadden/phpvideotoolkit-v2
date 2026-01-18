@@ -34,7 +34,7 @@
          * @author Oliver Lillie
          * @param  PHPVideoToolkit\Config $config The PHPVideoToolit\Config object.
          */
-        public function __construct(Config $config=null)
+        public function __construct(?Config $config=null)
         {
             parent::__construct($config);
             

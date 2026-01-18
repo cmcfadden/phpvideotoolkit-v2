@@ -65,7 +65,7 @@
          * @author Oliver Lillie
          * @param  PHPVideoToolkit\Config $config The PHPVideoToolkit\Config object
          */
-        public function __construct(Config $config=null)
+        public function __construct(?Config $config=null)
         {
             $this->_config = $config === null ? Config::getInstance() : $config;
             $this->_frames = array();

@@ -25,7 +25,7 @@
      */
     class MediaProbeParser extends MediaParserAbstract
     {
-        public function __construct(Config $config=null)
+        public function __construct(?Config $config=null)
         {
             parent::__construct($config, 'probe');
         }
